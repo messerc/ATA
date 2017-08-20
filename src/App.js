@@ -14,15 +14,10 @@ class App extends Component {
       todos: [],
       todo: ''
     }
-
-    this.onChange = this.onChange.bind(this);
-    this.addTodo = this.addTodo.bind(this);
-    this.removeTodo = this.removeTodo.bind(this);
-    this.completeTodo = this.completeTodo.bind(this);
   }
 
   // addTodo
-  addTodo (e) {
+  addTodo = (e) => {
     e.preventDefault(); 
     const idCalc = this.state.todos.length > 0 ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0), 0) + 1 : 0
     const todoToAdd = {
@@ -37,42 +32,43 @@ class App extends Component {
     })
   }
 
-  onChange (e) {
+  onChange = (e) => {
     this.setState({
       todo: e.target.value
     })
   }
 
-  removeTodo (todoId) {
+  removeTodo = (todoId) => {
     const todos = this.state.todos.filter(todo => {
       return todo.id !== todoId 
     })
     this.setState({todos})
   }
 
-  completeTodo (todoId) {
+  completeTodo = (todoId) => {
     const todos = this.state.todos.map(todo => {
       return todo.id === todoId ? {...todo, completed: !todo.completed} : todo
     }) 
     this.setState({todos})
   }
-  // removeTodo
-  // filterTodo
-  // editTodo
-  // completeTodo
-  // clearCompleted
-  // actions object
 
-  // Header with input
-  // List with item 
-  // Footer Component 
+  actions = {
+    addTodo: this.addTodo,
+    removeTodo: this.removeTodo,
+    onChange: this.onChange,
+    completeTodo: this.completeTodo
+  }
 
   render() {
     const { todos, todo } = this.state
     return (
       <div className="App">
-        <Header addTodo={this.addTodo} onChange={this.onChange} value={todo} />
-        <List todos={todos} completeTodo={this.completeTodo} removeTodo={this.removeTodo} />
+        <Header 
+          addTodo={this.actions.addTodo} 
+          onChange={this.actions.onChange} 
+          value={todo} 
+        />
+        <List todos={todos} actions={this.actions} />
         <Footer />
       </div>
     );

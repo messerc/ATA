@@ -6,14 +6,13 @@ import './List.css';
 
 export default class List extends Component {
   render() {
-    const { todos, removeTodo, completeTodo } = this.props;
+    const { todos, actions } = this.props;
     const todoList = todos.map((todo, i) => {
       return <Todo 
                 key={i+todo} 
                 todo={todo} 
-                onClick={removeTodo} 
-                completeTodo={completeTodo}
-                removeTodo={removeTodo} 
+                completeTodo={actions.completeTodo}
+                removeTodo={actions.removeTodo} 
               />
     })
     return (
