@@ -43,10 +43,11 @@ class App extends Component {
     })
   }
 
-  removeTodo (e) {
-    this.setState({
-
+  removeTodo (todoId) {
+    const todos = this.state.todos.filter(todo => {
+      return todo.id !== todoId 
     })
+    this.setState({todos})
   }
 
   completeTodo (todoId) {
@@ -71,7 +72,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header addTodo={this.addTodo} onChange={this.onChange} value={todo} />
-        <List todos={todos} completeTodo={this.completeTodo} />
+        <List todos={todos} completeTodo={this.completeTodo} removeTodo={this.removeTodo} />
         <Footer />
       </div>
     );

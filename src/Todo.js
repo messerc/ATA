@@ -13,8 +13,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { todo, completeTodo } = this.props
-    console.log(todo)
+    const { todo, completeTodo, removeTodo } = this.props
 
     let element = (
       <div className="view">
@@ -25,7 +24,7 @@ export default class List extends Component {
           onClick={() => completeTodo(todo.id)}
         />
         <label>{todo.todo}</label>
-        <button className="destroy" />
+        <button className="destroy" onClick={() => removeTodo(todo.id)} />
       </div>
     )
 
