@@ -1,0 +1,16 @@
+.add_todo_input {
+  margin-top: 50px;
+  width: 25%;
+  border-radius: 2%;
+  border: none;
+  border-bottom: 2px solid rgb(245, 245, 245);
+  vertical-align: bottom;
+  transition: 0.3s all;
+  font-size: 16px;
+  padding: 15px 0px 0px 5px;
+}
+
+.add_todo_input:focus {
+  outline: none;
+  border-bottom: 2px solid rgb(51, 153, 204);
+}
