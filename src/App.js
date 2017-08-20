@@ -18,13 +18,13 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+    this.completeTodo = this.completeTodo.bind(this);
   }
 
   // addTodo
   addTodo (e) {
     e.preventDefault(); 
-    console.log(this.state.todo);
-    const idCalc = this.state.todos.id ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0) + 1) : 0
+    const idCalc = this.state.todos.length > 0 ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0), 0) + 1 : 0
     const todoToAdd = {
       id: idCalc,
       todo: this.state.todo,
@@ -48,6 +48,13 @@ class App extends Component {
 
     })
   }
+
+  completeTodo (todoId) {
+    const todos = this.state.todos.map(todo => {
+      return todo.id === todoId ? {...todo, completed: !todo.completed} : todo
+    }) 
+    this.setState({todos})
+  }
   // removeTodo
   // filterTodo
   // editTodo
@@ -64,7 +71,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header addTodo={this.addTodo} onChange={this.onChange} value={todo} />
-        <List todos={todos}/>
+        <List todos={todos} completeTodo={this.completeTodo} />
         <Footer />
       </div>
     );

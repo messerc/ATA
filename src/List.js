@@ -6,9 +6,9 @@ import './List.css';
 
 export default class List extends Component {
   render() {
-    const { todos, removeTodo } = this.props;
+    const { todos, removeTodo, completeTodo } = this.props;
     const todoList = todos.map((todo, i) => {
-      return <Todo key={i+todo} todo={todo} onClick={removeTodo} />
+      return <Todo key={i+todo} todo={todo} onClick={removeTodo} completeTodo={completeTodo} />
     })
     return (
       <div className="list_container">
