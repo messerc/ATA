@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
+import Footer from './Footer';
 import Header from './Header';
-import logo from './logo.svg';
+import List from './List';
+
 import './App.css';
 
 class App extends Component {
@@ -8,11 +11,43 @@ class App extends Component {
 
     super(props);
     this.state = {
-      todos: []
+      todos: [],
+      todo: ''
     }
+
+    this.onChange = this.onChange.bind(this);
+    this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   }
 
   // addTodo
+  addTodo (e) {
+    e.preventDefault(); 
+    console.log(this.state.todo);
+    const idCalc = this.state.todos.id ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0) + 1) : 0
+    const todoToAdd = {
+      id: idCalc,
+      todo: this.state.todo,
+      completed: false
+    }
+    const newTodoList = this.state.todos.concat(todoToAdd)
+    this.setState({
+      todos: newTodoList,
+      todo: ''
+    })
+  }
+
+  onChange (e) {
+    this.setState({
+      todo: e.target.value
+    })
+  }
+
+  removeTodo (e) {
+    this.setState({
+
+    })
+  }
   // removeTodo
   // filterTodo
   // editTodo
@@ -25,9 +60,12 @@ class App extends Component {
   // Footer Component 
 
   render() {
+    const { todos, todo } = this.state
     return (
       <div className="App">
-        <Header />
+        <Header addTodo={this.addTodo} onChange={this.onChange} value={todo} />
+        <List todos={todos}/>
+        <Footer />
       </div>
     );
   }
