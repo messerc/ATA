@@ -6,17 +6,23 @@ import List from './List';
 
 import './App.css';
 
+const TODO_FILTERS = {
+  SHOW_ALL: () => true,
+  SHOW_ACTIVE: todo => !todo.completed,
+  SHOW_COMPLETED: todo => todo.completed
+}
+
 class App extends Component {
   constructor(props) {
 
     super(props);
     this.state = {
       todos: [],
-      todo: ''
+      todo: '',
+      filter: 'SHOW_ALL'
     }
   }
 
-  // addTodo
   addTodo = (e) => {
     e.preventDefault(); 
     const idCalc = this.state.todos.length > 0 ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0), 0) + 1 : 0
@@ -52,15 +58,21 @@ class App extends Component {
     this.setState({todos})
   }
 
+  filterOption = (filter) => {
+    this.setState({ filter })
+  }
+
   actions = {
     addTodo: this.addTodo,
     removeTodo: this.removeTodo,
     onChange: this.onChange,
-    completeTodo: this.completeTodo
+    completeTodo: this.completeTodo,
+    filterOption: this.filterOption
   }
 
   render() {
-    const { todos, todo } = this.state
+    const { todos, todo, filter } = this.state
+    const filteredTodos = todos.filter(TODO_FILTERS[filter])
     return (
       <div className="App">
         <Header 
@@ -68,8 +80,8 @@ class App extends Component {
           onChange={this.actions.onChange} 
           value={todo} 
         />
-        <List todos={todos} actions={this.actions} />
-        <Footer />
+        <List todos={filteredTodos} actions={this.actions} />
+        <Footer filterOption={this.actions.filterOption} />
       </div>
     );
   }
