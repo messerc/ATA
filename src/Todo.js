@@ -4,16 +4,25 @@ import './List.css';
 
 export default class List extends Component {
 
-  constructor(props) {
-    super(props)
+  state = {
+    editing: false
+  }
 
-    this.state = {
-      editing: false
+  handleDoubleClick = () => {
+    this.setState({ editing: true })
+  }
+
+  handleSave = (id, text) => {
+    if (text.length === 0) {
+      this.props.removeTodo(id)
+    } else {
+      this.props.editTodo(id, text)
     }
+    this.setState({ editing: false })
   }
 
   render() {
-    const { todo, completeTodo, removeTodo } = this.props
+    const { todo, completeTodo, removeTodo, editTodo } = this.props
 
     let element = (
       <div className="view">

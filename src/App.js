@@ -51,6 +51,13 @@ class App extends Component {
     this.setState({todos})
   }
 
+  editTodo = (todoId, text) => {
+    const todos = this.state.todos.map(todo => {
+      todo.id === todoId ? {...todo, todo: text} : todo
+    })
+    this.setState({todos})
+  }
+
   completeTodo = (todoId) => {
     const todos = this.state.todos.map(todo => {
       return todo.id === todoId ? {...todo, completed: !todo.completed} : todo
@@ -64,6 +71,7 @@ class App extends Component {
 
   actions = {
     addTodo: this.addTodo,
+    editTodo: this.editTodo,
     removeTodo: this.removeTodo,
     onChange: this.onChange,
     completeTodo: this.completeTodo,

@@ -1,8 +1,14 @@
 .list_container {
-  width: 50%;
+  width: 60%;
   background-color: white;
   margin: 0 auto;
-  min-height: 400px;
+  min-height: 300px;
+}
+
+@media (max-width: 768px) {
+  .list_container {
+    width: 80%;
+  }
 }
 
 .todo_list {

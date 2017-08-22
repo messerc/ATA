@@ -11,6 +11,7 @@ export default class List extends Component {
       return <Todo 
                 key={i+todo} 
                 todo={todo} 
+                editTodo={actions.editTodo}
                 completeTodo={actions.completeTodo}
                 removeTodo={actions.removeTodo} 
               />
