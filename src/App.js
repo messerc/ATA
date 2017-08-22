@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       todos: [],
-      todo: '',
+      text: '',
       filter: 'SHOW_ALL'
     }
   }
@@ -28,21 +28,25 @@ class App extends Component {
     const idCalc = this.state.todos.length > 0 ? this.state.todos.reduce((todos, todo) => Math.max(todo.id, 0), 0) + 1 : 0
     const todoToAdd = {
       id: idCalc,
-      todo: this.state.todo,
+      text: this.state.text,
       completed: false
     }
     const newTodoList = this.state.todos.concat(todoToAdd)
     this.setState({
       todos: newTodoList,
-      todo: ''
+      text: ''
     })
   }
 
   onChange = (e) => {
     this.setState({
-      todo: e.target.value
+      text: e.target.value
     })
   }
+
+  onSave = (e) => [
+
+  ]
 
   removeTodo = (todoId) => {
     const todos = this.state.todos.filter(todo => {
@@ -52,8 +56,18 @@ class App extends Component {
   }
 
   editTodo = (todoId, text) => {
+    console.log(todoId)
+    console.log(text)
+
     const todos = this.state.todos.map(todo => {
-      todo.id === todoId ? {...todo, todo: text} : todo
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          text
+        }
+      } else {
+        return todo
+      }
     })
     this.setState({todos})
   }
@@ -79,14 +93,14 @@ class App extends Component {
   }
 
   render() {
-    const { todos, todo, filter } = this.state
+    const { todos, text, filter } = this.state
     const filteredTodos = todos.filter(TODO_FILTERS[filter])
     return (
       <div className="App">
         <Header 
           addTodo={this.actions.addTodo} 
           onChange={this.actions.onChange} 
-          value={todo} 
+          value={text} 
         />
         <List todos={filteredTodos} actions={this.actions} />
         <Footer filterOption={this.actions.filterOption} />

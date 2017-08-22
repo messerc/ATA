@@ -5,11 +5,19 @@ import './List.css';
 export default class List extends Component {
 
   state = {
-    editing: false
+    editing: false,
+    text: this.props.todo.text || ''
   }
 
   handleDoubleClick = () => {
     this.setState({ editing: true })
+  }
+
+  handleSubmit = (e) => {
+    const text = e.target.value.trim()
+    if (e.which === 13) {
+      this.handleSave(this.props.todo.id, text)
+    }
   }
 
   handleSave = (id, text) => {
@@ -21,10 +29,31 @@ export default class List extends Component {
     this.setState({ editing: false })
   }
 
+  handleChange = (e) => {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
   render() {
     const { todo, completeTodo, removeTodo, editTodo } = this.props
-
-    let element = (
+    const { editing, text } = this.state
+    
+    let element;
+    if (editing) {
+      element = (
+      <div className="view">
+        <input
+          type="text"
+          autoFocus="true"
+          value={text}
+          onChange={this.handleChange}
+          onKeyDown={this.handleSubmit}
+          />
+      </div>
+      )
+    } else {
+      element = (
       <div className="view">
         <input 
           className="toggle"
@@ -32,13 +61,14 @@ export default class List extends Component {
           checked={todo.completed}
           onClick={() => completeTodo(todo.id)}
         />
-        <label>{todo.todo}</label>
+        <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
         <button className="destroy" onClick={() => removeTodo(todo.id)} />
       </div>
-    )
+      )
+    }
 
     return (
-      <li className={todo.completed ? 'completed': 'inprogress'}> {element} </li>
+      <li> {element} </li>
     )
   }
 }

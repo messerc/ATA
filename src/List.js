@@ -13,7 +13,8 @@ export default class List extends Component {
                 todo={todo} 
                 editTodo={actions.editTodo}
                 completeTodo={actions.completeTodo}
-                removeTodo={actions.removeTodo} 
+                removeTodo={actions.removeTodo}
+                onChange={actions.onChange}
               />
     })
     return (
