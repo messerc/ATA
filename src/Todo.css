@@ -1,0 +1,17 @@
+.destroy {
+  float: right;
+  margin-right: 30px;
+  color: rgba(155, 155, 155, 0.4);
+  font-weight: bold;
+  opacity: 0;
+  transition: 0.2s all;
+}
+
+.view:hover > .destroy {
+  cursor: default;
+  opacity: 1;
+}
+
+.destroy:hover {
+  color: rgba(155, 155, 155, 1);
+}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import './List.css';
+import './Todo.css';
 
-export default class List extends Component {
+export default class Todo extends Component {
 
   state = {
     editing: false,
@@ -45,7 +46,7 @@ export default class List extends Component {
       <div className="view">
         <input
           type="text"
-          autoFocus="true"
+          autoFocus={true}
           value={text}
           onChange={this.handleChange}
           onKeyDown={this.handleSubmit}
@@ -61,8 +62,8 @@ export default class List extends Component {
           checked={todo.completed}
           onClick={() => completeTodo(todo.id)}
         />
-        <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
-        <button className="destroy" onClick={() => removeTodo(todo.id)} />
+        <label className="todo_text" onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
+        <span className="destroy" onClick={() => removeTodo(todo.id)} > x </span>
       </div>
       )
     }
