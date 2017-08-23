@@ -19,7 +19,6 @@ export default class List extends Component {
     })
     return (
       <div className="list_container">
-        <p> This is the List </p>
         <ul className="todo_list" >
           {todoList}
         </ul>

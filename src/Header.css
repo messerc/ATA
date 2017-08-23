@@ -1,13 +1,18 @@
 .add_todo_input {
   margin-top: 50px;
-  width: 50%;
+  background-color: inherit;
+  width: 40%;
   border-radius: 2%;
   border: none;
-  border-bottom: 2px solid rgb(245, 245, 245);
+  border-bottom: 2px solid rgb(225, 225, 225);
   vertical-align: bottom;
-  transition: 0.3s all;
+  transition: 0.4s all;
   font-size: 16px;
   padding: 15px 0px 3px 5px;
+}
+
+.add_todo_input::placeholder {
+  color: rgb(205, 205, 205);
 }
 
 .add_todo_input:focus {

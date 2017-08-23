@@ -15,3 +15,12 @@
 .destroy:hover {
   color: rgba(155, 155, 155, 1);
 }
+
+.todo_text {
+  margin-left: 20px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: rgb(195, 195, 195);
+}

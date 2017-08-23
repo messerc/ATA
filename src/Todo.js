@@ -39,6 +39,13 @@ export default class Todo extends Component {
   render() {
     const { todo, completeTodo, removeTodo, editTodo } = this.props
     const { editing, text } = this.state
+
+    let textStyle;
+    if (todo.completed) {
+      textStyle = "todo_text completed"
+    } else {
+      textStyle="todo_text"
+    }
     
     let element;
     if (editing) {
@@ -62,7 +69,7 @@ export default class Todo extends Component {
           checked={todo.completed}
           onClick={() => completeTodo(todo.id)}
         />
-        <label className="todo_text" onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
+        <label className={textStyle} onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
         <span className="destroy" onClick={() => removeTodo(todo.id)} > x </span>
       </div>
       )
